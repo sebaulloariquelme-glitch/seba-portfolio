@@ -7,7 +7,7 @@
 <meta name="description" content="Portafolio de Seba Ulloa Riquelme, Creative Director en Santiago, Chile. Campañas para Xiaomi, Corona, Budweiser, Movistar, Cachantún, Elite, Bci Seguros y Bauker." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,209 +21,182 @@
     --font-mono:    'Courier New', Courier, monospace;
   }
 
-  html { font-size: 16px; overflow-x: hidden; max-width: 100vw; scroll-behavior: smooth; }
-
-  body {
-    background: #000;
-    color: var(--white);
-    font-family: var(--font-mono);
-    cursor: none;
-    overflow-x: hidden;
-  }
-  @media (hover: none) and (pointer: coarse) { body { cursor: auto; } #cursor { display: none !important; } }
+  html { font-size: 16px; overflow-x: hidden; max-width: 100vw; }
+  body { background: #000; color: var(--white); font-family: var(--font-mono); cursor: none; overflow-x: hidden; }
+  @media (hover: none) and (pointer: coarse) { body { cursor: auto; } #cursor, #preview { display: none !important; } }
 
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--accent); color: #0a0a0a; }
 
   /* ─── CUSTOM CURSOR ─── */
   #cursor {
-    position: fixed; width: 8px; height: 8px;
-    background: var(--white); border-radius: 50%;
-    pointer-events: none; z-index: 10000;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    position: fixed; width: 8px; height: 8px; background: var(--white); border-radius: 50%;
+    pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
     display: flex; align-items: center; justify-content: center;
   }
-  #cursor.hover {
-    width: 44px; height: 44px; background: transparent;
-    box-shadow: inset 0 0 0 1px rgba(242,240,235,0.5);
-  }
-  #cursor.hover-view {
-    width: 76px; height: 76px; background: var(--white);
-  }
+  #cursor.hover { width: 44px; height: 44px; background: transparent; box-shadow: inset 0 0 0 1px rgba(242,240,235,0.5); }
+  #cursor.hover-view { width: 76px; height: 76px; background: var(--white); }
   #cursor.hover-view::after {
     content: 'VER'; font-family: var(--font-heading); font-size: 0.6rem;
     font-weight: 500; letter-spacing: 0.18em; color: #0a0a0a; position: absolute;
   }
-
   #preview {
-    position: fixed; width: min(24vw, 300px); aspect-ratio: 4/3;
-    pointer-events: none; z-index: 60; top: 0; left: 0;
-    opacity: 0; transition: opacity 0.35s ease;
-    overflow: hidden; border-radius: 2px;
+    position: fixed; width: min(24vw, 300px); aspect-ratio: 3/2; pointer-events: none; z-index: 60;
+    top: 0; left: 0; opacity: 0; transition: opacity 0.35s ease; overflow: hidden; border-radius: 2px;
   }
   #preview.on { opacity: 1; }
   #preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  /* ─── LAYOUT ─── */
   .page { min-height: 100vh; display: flex; flex-direction: column; background: var(--black); overflow-x: hidden; max-width: 100vw; }
 
   /* ─── HEADER ─── */
-  header {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: flex-start;
-    padding: 2rem 3rem;
-  }
-  .logo {
-    font-family: var(--font-display); font-size: 1rem; font-style: italic;
-    letter-spacing: -0.01em; color: var(--white); opacity: 0.75;
-  }
+  header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: flex-start; padding: 2rem 3rem; }
+  .logo { font-family: var(--font-display); font-size: 1rem; font-style: italic; letter-spacing: -0.01em; color: var(--white); opacity: 0.7; }
   nav { display: flex; gap: 2.5rem; align-items: center; }
   .nav-link { display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
-  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: #444; transition: background 0.3s; }
-  .nav-link:hover .nav-dot, .nav-link.active .nav-dot { background: var(--white); }
-  .nav-label {
-    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #666;
-    transition: color 0.3s;
-  }
+  .nav-dot { display: inline-block; width: 5px; height: 5px; border: 1px solid #444; border-radius: 50%; transition: border-color 0.2s, background 0.2s; }
+  .nav-link:hover .nav-dot, .nav-link.active .nav-dot { background: var(--white); border-color: var(--white); }
+  .nav-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); transition: color 0.2s; }
   .nav-link:hover .nav-label, .nav-link.active .nav-label { color: var(--white); }
-  .nav-line { width: 60px; height: 1px; background: #262626; display: block; overflow: hidden; }
-  .nav-line-fill { display: block; height: 100%; width: 0%; background: var(--white); transition: width 0.4s ease; }
-  .nav-link.active .nav-line-fill { width: 100%; }
-  .nav-icons { display: flex; gap: 1rem; margin-left: 0.5rem; }
-  .nav-icon { color: #666; transition: color 0.3s; display: flex; }
-  .nav-icon:hover { color: var(--white); }
+  .nav-line { display: block; width: 100%; height: 1px; background: #2a2a2a; position: relative; min-width: 80px; }
+  .nav-line-fill { display: block; position: absolute; top: 0; left: 0; height: 1px; width: 0%; background: var(--white); }
+  .nav-icons { display: flex; align-items: center; gap: 1rem; margin-left: 0.5rem; align-self: center; padding-top: 0.15rem; }
+  .nav-icon { color: var(--dim); display: flex; align-items: center; transition: color 0.2s; position: relative; }
   .nav-icon svg { width: 14px; height: 14px; }
-  @media (max-width: 780px) { nav { gap: 1.2rem; } .nav-line { width: 34px; } header { padding: 1.5rem 1.5rem; } }
-  @media (max-width: 560px) { .nav-label { display: none; } .nav-line { display: none; } .nav-icons { display: none; } }
+  .nav-icon::after {
+    content: attr(aria-label); position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--black); background: var(--white); padding: 0.3rem 0.6rem; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .nav-icon:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .nav-icon:hover { color: var(--white); }
+  @media (max-width: 780px) { nav { gap: 1.2rem; } .nav-line { min-width: 34px; } header { padding: 1.5rem; } }
+  @media (max-width: 560px) { .nav-label, .nav-line, .nav-icons { display: none; } }
 
   /* ─── HERO ─── */
-  .hero {
-    min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
-    padding: 8rem 3rem 6rem; position: relative;
-  }
-  .hero-eyebrow {
-    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dim);
-    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;
-  }
+  .hero { min-height: 100svh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+
+  .parallax-field { position: absolute; inset: 0; pointer-events: none; }
+  .pimg { position: absolute; overflow: hidden; border-radius: 2px; opacity: 0; transition: opacity 1s ease; }
+  .pimg.in { opacity: 1; }
+  .pimg img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.5; transition: opacity 0.6s ease; }
+  .pimg.large img { opacity: 0.95; }
+  .hero:hover .pimg.small img { opacity: 0.7; }
+
+  #pimg-tl { top: -4%; left: -2%; width: 20%; height: 34%; }
+  #pimg-tc { top: -3%; left: 38%; width: 15%; height: 30%; }
+  #pimg-tr { top: -3%; right: -2%; width: 19%; height: 32%; }
+  #pimg-ml { top: 42%; left: 2%; width: 11%; height: 22%; }
+  #pimg-mr { top: 36%; right: 6%; width: 11%; height: 20%; }
+  #pimg-bl { bottom: -6%; left: -12%; width: 34%; height: 36%; }
+  #pimg-bc { bottom: -8%; left: 42%; width: 15%; height: 42%; }
+  #pimg-br { bottom: -3%; right: -2%; width: 23%; height: 40%; }
+  @media (max-width: 900px) { .parallax-field { opacity: 0.5; } #pimg-tc, #pimg-ml, #pimg-mr { display: none; } }
+  @media (max-width: 600px) { .parallax-field { display: none; } }
+
+  .hero-text { position: relative; z-index: 5; text-align: center; padding: 0 1.5rem; }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
   .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-  .hero-name-clip { overflow: hidden; padding-bottom: 0.1em; line-height: 1; }
-  .hero-name {
-    font-family: var(--font-display); font-size: clamp(3rem, 9vw, 8rem);
-    font-weight: 400; font-style: italic; line-height: 1.05; letter-spacing: -0.02em;
-    color: #fff;
-  }
-  .hero-roles {
-    font-family: var(--font-heading); font-size: 0.85rem; font-weight: 400;
-    letter-spacing: 0.12em; text-transform: uppercase; color: #888;
-    display: flex; align-items: center; gap: 0.6em; flex-wrap: wrap;
-    margin-top: 1.4rem; margin-bottom: 0.5rem;
-  }
+  .hero-name-clip { overflow: hidden; padding-bottom: 0.12em; line-height: 1; }
+  .hero-name { font-family: var(--font-display); font-size: clamp(2.6rem, 8.5vw, 7.5rem); font-weight: 400; font-style: italic; line-height: 1.05; letter-spacing: -0.02em; color: #fff; }
+  .hero-name .hl { display: inline-block; will-change: transform, opacity; transform: translateY(60px); opacity: 0; }
+  .hero-roles { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #888; display: flex; align-items: center; justify-content: center; gap: 0.6em; flex-wrap: wrap; margin-top: 1.4rem; }
   .hero-roles-sep { color: #888; font-size: 1.8em; line-height: 1; font-family: var(--font-display); font-style: italic; }
-  .hero-sub {
-    font-size: 0.78rem; letter-spacing: 0.06em; color: #999; margin-top: 1rem;
-    max-width: 52ch; line-height: 1.8; text-transform: none;
-  }
-  .scroll-cue {
-    position: absolute; bottom: 2.5rem; left: 3rem; font-size: 0.65rem;
-    letter-spacing: 0.2em; text-transform: uppercase; color: #555;
-    display: flex; align-items: center; gap: 10px;
-  }
+  .hero-sub { font-size: 0.78rem; letter-spacing: 0.06em; color: #999; margin: 1rem auto 0; max-width: 52ch; line-height: 1.8; }
+  .scroll-cue { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #555; display: flex; align-items: center; gap: 10px; z-index: 5; }
   .scroll-cue span { width: 32px; height: 1px; background: #444; display: inline-block; }
-  @media (max-width: 640px) { .hero { padding: 7rem 1.5rem 5rem; } .scroll-cue { left: 1.5rem; } }
+
+  /* ─── SECTION HEADING ─── */
+  .section-heading {
+    font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 4.6rem); font-weight: 700;
+    letter-spacing: -0.03em; color: var(--white); line-height: 1; margin-bottom: 1.5rem;
+    display: block; overflow: hidden; padding-bottom: 0.12em;
+  }
+  .section-heading .sh-letter { display: inline-block; will-change: transform, opacity; transform: translateY(40px); opacity: 0; }
+  .section-heading .sh-space { display: inline-block; width: 0.28em; }
 
   /* ─── PHILOSOPHY ─── */
-  .philosophy-section {
-    padding: 7rem 3rem; background: #0d0d0d; border-top: 1px solid #1a1a1a; position: relative; z-index: 3;
-  }
+  .philosophy-section { padding: 7rem 3rem; background: #0d0d0d; border-top: 1px solid #1a1a1a; position: relative; z-index: 3; }
   .philosophy-inner { display: grid; grid-template-columns: 55fr 45fr; gap: 5rem; align-items: start; }
-  .philosophy-label {
-    font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: #888; margin-bottom: 2.5rem;
-  }
-  .philosophy-text {
-    font-family: var(--font-heading); font-size: clamp(1.3rem, 2.6vw, 2.6rem);
-    font-weight: 300; color: #aaa; line-height: 1.3; letter-spacing: 0.01em;
-  }
-  .philosophy-text .q-char { display: inline; will-change: opacity; opacity: 0.15; transition: opacity 0.4s; }
+  .philosophy-label { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: #888; margin-bottom: 2.5rem; }
+  .philosophy-text { font-family: var(--font-heading); font-size: clamp(1.25rem, 2.4vw, 2.4rem); font-weight: 300; color: #aaa; line-height: 1.35; letter-spacing: 0.01em; }
+  .philosophy-text .q-char { display: inline; opacity: 0.15; transition: opacity 0.4s; }
   .philosophy-text .q-char.hi { color: var(--white); }
   .philosophy-text .q-char.in { opacity: 1; }
 
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-self: stretch; }
-  .stat-card { padding: 1.4rem 1.2rem; border-right: 1px solid #262626; border-bottom: 1px solid #262626; }
-  .stat-card:nth-child(even) { border-right: none; }
-  .stat-num { font-family: var(--font-display); font-style: italic; font-size: 2.1rem; color: var(--white); line-height: 1; }
-  .stat-label { font-family: var(--font-heading); font-size: 0.72rem; color: #888; letter-spacing: 0.06em; margin-top: 0.6rem; }
+  .expertise-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; }
+  .expertise-card { padding: 1.5rem 1.3rem; border-right: 1px solid #262626; border-bottom: 1px solid #262626; transition: background 0.3s; }
+  .expertise-card:nth-child(even) { border-right: none; }
+  .expertise-card:nth-child(3), .expertise-card:nth-child(4) { border-bottom: 1px solid #262626; }
+  .expertise-card:nth-child(3), .expertise-card:nth-child(4) { border-bottom: none; }
+  .ecard-icon { width: 30px; height: 30px; color: var(--white); margin-bottom: 1.1rem; transition: color 0.3s, transform 0.4s cubic-bezier(.34,1.56,.64,1); }
+  .ecard-title { font-family: var(--font-display); font-style: italic; font-size: 1.05rem; color: var(--white); margin-bottom: 0.5rem; transition: color 0.3s; }
+  .ecard-sub { font-family: var(--font-heading); font-size: 0.78rem; color: #888; line-height: 1.5; transition: color 0.3s; }
+  @media (hover: hover) {
+    .expertise-list:has(.expertise-card:hover) .expertise-card:not(:hover) .ecard-icon,
+    .expertise-list:has(.expertise-card:hover) .expertise-card:not(:hover) .ecard-title,
+    .expertise-list:has(.expertise-card:hover) .expertise-card:not(:hover) .ecard-sub { color: #333; }
+    .expertise-card:hover { background: #161616; }
+    .expertise-card:hover .ecard-icon { transform: scale(1.15); }
+  }
   @media (max-width: 780px) { .philosophy-inner { grid-template-columns: 1fr; gap: 2.5rem; } .philosophy-section { padding: 5rem 1.5rem; } }
+
+  /* ─── FEATURED ─── */
+  .featured-section { padding: 6rem 0 2rem; background: #0a0a0a; position: relative; z-index: 3; }
+  .featured-label { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: #888; margin-bottom: 1.6rem; padding: 0 3rem; }
+  .featured-section .section-heading { padding: 0 3rem; }
+  .featured-grids-wrap { display: flex; flex-direction: column; gap: 3.5rem; margin-top: 1rem; }
+  .featured-grid { display: flex; gap: 12px; padding: 0 3rem; }
+  .featured-item { display: flex; flex-direction: column; flex: 1; transition: flex 0.7s cubic-bezier(.77,0,.175,1), filter 0.4s; }
+  .featured-img-wrap { position: relative; overflow: hidden; width: 100%; aspect-ratio: 3/2; }
+  .featured-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(.77,0,.175,1); }
+  .featured-item:hover img { transform: scale(1.03); }
+  .featured-caption { display: flex; justify-content: space-between; align-items: baseline; padding: 0.8rem 0 0; border-top: 1px solid #1e1e1e; gap: 1rem; }
+  .featured-caption-left { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .featured-caption-title { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 500; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .featured-caption-sub { font-family: var(--font-heading); font-size: 0.75rem; color: #777; letter-spacing: 0.1em; text-transform: uppercase; }
+  .featured-caption-year { font-family: var(--font-heading); font-size: 0.75rem; color: #999; white-space: nowrap; }
+  @media (max-width: 780px) {
+    .featured-grid { flex-direction: column; padding: 0 1.5rem; }
+    .featured-item { flex: 1 !important; }
+    .featured-label, .featured-section .section-heading { padding: 0 1.5rem; }
+  }
 
   /* ─── WORK ─── */
   .work-section { padding: 6rem 3rem 3rem; background: #161412; position: relative; z-index: 3; }
   .work-label { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: #888; margin-bottom: 1.5rem; }
-  .section-heading {
-    font-family: var(--font-display); font-style: italic; font-weight: 400;
-    font-size: clamp(2rem, 5vw, 4rem); color: var(--white); line-height: 1; margin-bottom: 1.5rem;
-  }
-  .work-description {
-    font-family: var(--font-heading); font-size: 0.92rem; color: #888;
-    letter-spacing: 0.01em; line-height: 1.7; max-width: 54ch; margin-bottom: 3rem;
-  }
+  .work-description { font-family: var(--font-heading); font-size: 0.92rem; color: #888; letter-spacing: 0.01em; line-height: 1.7; max-width: 54ch; margin-bottom: 3rem; }
 
   .project-list { list-style: none; }
-  .project-row {
-    display: grid; grid-template-columns: 3.5rem 1fr; align-items: center; gap: 2rem;
-    padding: 1.4rem 0; border-bottom: 1px solid #1a1a1a; cursor: none; transition: border-color 0.3s;
-  }
+  .project-row { display: grid; grid-template-columns: 3.5rem 1fr; align-items: center; gap: 2rem; padding: 1.4rem 0; border-bottom: 1px solid #1a1a1a; transition: border-color 0.3s; }
   .project-row:hover { border-bottom-color: #333; }
   .project-row:hover .project-name { transform: translateX(0.5rem); color: var(--white); }
   .project-row:hover .project-index { color: var(--white); }
   .project-index { font-size: 1rem; letter-spacing: 0.1em; color: #333; transition: color 0.3s; align-self: start; padding-top: 2px; }
-  .project-name {
-    font-family: var(--font-heading); font-size: clamp(1.25rem, 2.6vw, 2.1rem); font-weight: 400;
-    color: #666; letter-spacing: -0.01em; line-height: 1.15;
-    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.3s;
-  }
-  .project-sub {
-    font-family: var(--font-heading); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: #777; margin-top: 0.7rem; display: flex; align-items: stretch; gap: 0.6em; line-height: 1.5;
-    transition: color 0.3s ease;
-  }
+  .project-name { font-family: var(--font-heading); font-size: clamp(1.25rem, 2.6vw, 2.1rem); font-weight: 400; color: #666; letter-spacing: -0.01em; line-height: 1.15; transition: transform 0.4s cubic-bezier(.16,1,.3,1), color 0.3s; }
+  .project-sub { font-family: var(--font-heading); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: #777; margin-top: 0.7rem; display: flex; align-items: stretch; gap: 0.6em; line-height: 1.5; transition: color 0.3s ease; }
   .project-row:hover .project-sub { color: var(--white); }
   .project-row:hover .sub-dot { color: var(--white); }
   .sub-dot { font-family: var(--font-display); font-style: italic; font-size: 1.6em; color: #777; line-height: 1; transition: color 0.3s ease; }
-  .project-views {
-    font-family: var(--font-mono); font-size: 0.68rem; color: #444; margin-top: 0.5rem; letter-spacing: 0.05em;
-  }
-  @media (max-width: 720px) {
-    .project-row { grid-template-columns: 2.4rem 1fr; }
-    .project-name { font-size: clamp(1.1rem, 5.4vw, 1.6rem); }
-  }
+  .project-views { font-family: var(--font-mono); font-size: 0.68rem; color: #444; margin-left: 0.6em; letter-spacing: 0.05em; }
+  @media (max-width: 720px) { .project-row { grid-template-columns: 2.4rem 1fr; } .project-name { font-size: clamp(1.1rem, 5.4vw, 1.6rem); } .project-views { display: block; margin-left: 0; margin-top: 0.3rem; } }
   @media (max-width: 640px) { .work-section { padding: 5rem 1.5rem 2rem; } }
 
   /* ─── ABOUT ─── */
   .about-section { padding: 7rem 3rem 6rem; display: grid; grid-template-columns: 60fr 40fr; gap: 5rem; background: var(--black); position: relative; z-index: 3; }
   .about-label { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: #888; margin-bottom: 1.5rem; }
-  .about-section .section-heading { margin-bottom: 2.2rem; }
-  .about-text {
-    font-family: var(--font-heading); font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 300;
-    color: #999; line-height: 1.7;
-  }
+  .about-text { font-family: var(--font-heading); font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 300; color: #999; line-height: 1.7; }
   .about-text strong { color: var(--white); font-weight: 500; }
-
   .about-right { display: flex; flex-direction: column; gap: 1.5rem; }
-  .about-mono {
-    width: 96px; height: 96px; border: 1px solid #2a2a2a; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-style: italic; font-size: 1.6rem; color: var(--white);
-  }
+  .about-mono { width: 96px; height: 96px; border: 1px solid #2a2a2a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-style: italic; font-size: 1.6rem; color: var(--white); }
   .about-role { border-top: 1px solid #1e1e1e; padding-top: 1.1rem; }
   .about-role-company { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--white); }
   .about-role-title { font-family: var(--font-heading); font-size: 0.85rem; color: #999; margin-top: 0.3rem; }
   .about-role-period { font-family: var(--font-mono); font-size: 0.7rem; color: #555; margin-top: 0.35rem; letter-spacing: 0.04em; }
-  .about-cta {
-    font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--white); border-bottom: 1px solid #333; padding-bottom: 4px; align-self: flex-start;
-    transition: border-color 0.3s;
-  }
+  .about-cta { font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); border-bottom: 1px solid #333; padding-bottom: 4px; align-self: flex-start; transition: border-color 0.3s; }
   .about-cta:hover { border-color: var(--white); }
   @media (max-width: 780px) { .about-section { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 2.5rem; } }
 
@@ -231,40 +204,30 @@
   .punchline-section { padding: 6rem 3rem 7rem; text-align: center; background: #0d0d0d; border-top: 1px solid #1a1a1a; }
   .punchline-wrap { max-width: 900px; margin: 0 auto; }
   .punchline-quote-icon { font-family: var(--font-display); font-style: italic; font-size: 3rem; color: #333; margin-bottom: 1rem; }
-  .punchline-text {
-    font-family: var(--font-display); font-style: italic; font-weight: 400;
-    font-size: clamp(1.5rem, 3.6vw, 2.6rem); line-height: 1.35; color: #444;
-  }
+  .punchline-text { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 3.6vw, 2.6rem); line-height: 1.35; color: #444; }
   .punchline-text .q-char { display: inline; opacity: 0.15; transition: opacity 0.4s; }
   .punchline-text .q-char.hi { color: var(--white); }
   .punchline-text .q-char.in { opacity: 1; }
   @media (max-width: 640px) { .punchline-section { padding: 4.5rem 1.5rem 5rem; } }
 
   /* ─── FOOTER ─── */
-  footer { padding: 5rem 3rem 3rem; background: var(--black); }
-  .footer-links-row {
-    display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem;
-    border-bottom: 1px solid #1a1a1a; padding-bottom: 3rem; margin-bottom: 2rem;
-  }
+  footer { padding: 5rem 3rem 0; background: var(--black); overflow: hidden; }
+  .footer-links-row { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem; border-bottom: 1px solid #1a1a1a; padding-bottom: 3rem; margin-bottom: 1.5rem; }
   .footer-links-eyebrow { font-family: var(--font-heading); font-size: 0.85rem; color: #777; margin-bottom: 0.8rem; }
-  .footer-links-email {
-    font-family: var(--font-display); font-style: italic; font-size: clamp(1.6rem, 4vw, 2.6rem);
-    color: var(--white); position: relative;
-  }
-  .footer-links-email::after {
-    content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 1px;
-    background: #333; transition: background 0.3s;
-  }
+  .footer-links-email { font-family: var(--font-display); font-style: italic; font-size: clamp(1.6rem, 4vw, 2.6rem); color: var(--white); position: relative; }
+  .footer-links-email::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 1px; background: #333; transition: background 0.3s; }
   .footer-links-email:hover::after { background: var(--white); }
-  .footer-links-buttons { display: flex; gap: 1rem; }
-  .footer-barrel-link {
-    font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--white); border: 1px solid #2a2a2a; border-radius: 20px; padding: 10px 20px;
-    transition: border-color 0.3s, background 0.3s;
-  }
+  .footer-links-buttons { display: flex; gap: 0.75rem; }
+  .footer-barrel-link { font-family: var(--font-heading); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); border: 1px solid #2a2a2a; border-radius: 20px; padding: 10px 20px; transition: border-color 0.3s, background 0.3s; }
   .footer-barrel-link:hover { border-color: var(--white); background: #141414; }
-  .footer-meta { display: flex; justify-content: space-between; color: #555; font-size: 0.68rem; letter-spacing: 0.04em; flex-wrap: wrap; gap: 0.6rem; }
-  @media (max-width: 640px) { footer { padding: 4rem 1.5rem 2rem; } .footer-links-row { align-items: flex-start; } }
+  .footer-meta { display: flex; justify-content: space-between; color: #555; font-size: 0.68rem; letter-spacing: 0.04em; flex-wrap: wrap; gap: 0.6rem; padding-bottom: 1.5rem; }
+  .footer-name-wrap { line-height: 0.78; text-align: center; overflow: hidden; }
+  .footer-name-wrap span {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(3rem, 15vw, 11rem); color: transparent;
+    -webkit-text-stroke: 1px #2a2a2a; white-space: nowrap;
+  }
+  @media (max-width: 640px) { footer { padding: 4rem 1.5rem 0; } .footer-links-row { align-items: flex-start; } }
 
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -309,17 +272,30 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <p class="hero-eyebrow">Creative Director — Santiago, Chile</p>
-    <div class="hero-name-clip"><h1 class="hero-name">Seba Ulloa<br>Riquelme</h1></div>
-    <p class="hero-roles">
-      <span>Creative Director</span><span class="hero-roles-sep">·</span>
-      <span>Publicidad</span><span class="hero-roles-sep">·</span>
-      <span>Cannes Young Lions Chile</span>
-    </p>
-    <p class="hero-sub">
-      Ideas para marcas como Xiaomi, Corona, Budweiser, Movistar, Cachantún, Elite,
-      Bci Seguros y Bauker — de la idea al brief resuelto.
-    </p>
+    <div class="parallax-field">
+      <div id="pimg-tl" class="pimg large" data-depth="0.06"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/33443a143688955.Y3JvcCwxMzgwLDEwODAsMjAsMA.jpg" alt=""></div>
+      <div id="pimg-tc" class="pimg large" data-depth="0.12"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/b30307205194309.Y3JvcCwxMzgwLDEwODAsMTk4LDA.jpg" alt=""></div>
+      <div id="pimg-tr" class="pimg large" data-depth="0.07"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/0d5c74234493345.Y3JvcCwxNDU3LDExNDAsMzc4LDE3Ng.jpg" alt=""></div>
+      <div id="pimg-ml" class="pimg small" data-depth="0.18"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/31d644157729169.Y3JvcCwxMDkwLDg1Myw0MTUsMTEz.jpg" alt=""></div>
+      <div id="pimg-mr" class="pimg small" data-depth="0.15"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/b9e4a4124639289.Y3JvcCwxMjI5LDk2MiwyMzcsMTEy.jpg" alt=""></div>
+      <div id="pimg-bl" class="pimg large" data-depth="0.08"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/13333d146755825.Y3JvcCwxMzgwLDEwODAsMCww.jpg" alt=""></div>
+      <div id="pimg-bc" class="pimg large" data-depth="0.10"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/ea1b5b110837777.Y3JvcCwxMzgwLDEwODAsMTMsMA.jpg" alt=""></div>
+      <div id="pimg-br" class="pimg large" data-depth="0.05"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/5bc200247988883.Y3JvcCwyODc2LDIyNTAsMjgsMA.jpg" alt=""></div>
+    </div>
+
+    <div class="hero-text">
+      <p class="hero-eyebrow">Creative Director — Santiago, Chile</p>
+      <div class="hero-name-clip"><h1 class="hero-name" id="hero-name" data-text="Seba Ulloa Riquelme"></h1></div>
+      <p class="hero-roles">
+        <span>Creative Director</span><span class="hero-roles-sep">·</span>
+        <span>Publicidad</span><span class="hero-roles-sep">·</span>
+        <span>Cannes Young Lions Chile</span>
+      </p>
+      <p class="hero-sub">
+        Ideas para marcas como Xiaomi, Corona, Budweiser, Movistar, Cachantún, Elite,
+        Bci Seguros y Bauker — de la idea al brief resuelto.
+      </p>
+    </div>
     <div class="scroll-cue"><span></span> Scroll</div>
   </section>
 
@@ -330,11 +306,68 @@
         <p class="philosophy-label">Qué hago</p>
         <p class="philosophy-text" id="philosophy-text" data-text="Creo campañas que no se sienten como campañas. Cada proyecto empieza con una idea simple y termina en algo mejor de lo que pedía el brief, para marcas grandes y para marcas que recién empiezan."></p>
       </div>
-      <div class="stat-grid reveal">
-        <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Proyectos publicados</div></div>
-        <div class="stat-card"><div class="stat-num">8+</div><div class="stat-label">Marcas</div></div>
-        <div class="stat-card"><div class="stat-num">CL</div><div class="stat-label">Young Lions Chile</div></div>
-        <div class="stat-card"><div class="stat-num">↗</div><div class="stat-label"><a href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">Ver Behance</a></div></div>
+      <ul class="expertise-list reveal">
+        <li class="expertise-card">
+          <svg class="ecard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6v.5h5.4v-.5c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>
+          <p class="ecard-title">Estrategia</p>
+          <p class="ecard-sub">Ideas de campaña con un porqué claro.</p>
+        </li>
+        <li class="expertise-card">
+          <svg class="ecard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 4V5L6 9H5a2 2 0 0 0-2 2zM16 8a4 4 0 0 1 0 8M19 5a8 8 0 0 1 0 14"/></svg>
+          <p class="ecard-title">Campañas 360</p>
+          <p class="ecard-sub">De la idea al lanzamiento, en todos los medios.</p>
+        </li>
+        <li class="expertise-card">
+          <svg class="ecard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M10 9.5v5l4-2.5z"/></svg>
+          <p class="ecard-title">Film &amp; Contenido</p>
+          <p class="ecard-sub">Piezas audiovisuales que se quedan.</p>
+        </li>
+        <li class="expertise-card">
+          <svg class="ecard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4h16v6H4zM4 14h7v6H4zM14 14h6v6h-6z"/></svg>
+          <p class="ecard-title">Identidad de marca</p>
+          <p class="ecard-sub">Sistemas visuales consistentes y flexibles.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="featured-section" id="featured">
+    <p class="featured-label">Lo más visto</p>
+    <h2 class="section-heading" data-heading="Trabajo destacado"></h2>
+
+    <div class="featured-grids-wrap">
+      <div class="featured-grid" id="featured-grid">
+        <a class="featured-item" style="flex:3;" href="https://www.behance.net/gallery/146755825/Movistar-Safelist" target="_blank" rel="noopener">
+          <div class="featured-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/13333d146755825.Y3JvcCwxMzgwLDEwODAsMCww.jpg" alt="Safelist"></div>
+          <div class="featured-caption">
+            <div class="featured-caption-left"><span class="featured-caption-title">Safelist</span><span class="featured-caption-sub">Movistar</span></div>
+            <span class="featured-caption-year">5.2K vistas</span>
+          </div>
+        </a>
+        <a class="featured-item" style="flex:2;" href="https://www.behance.net/gallery/110837777/Cachantun-Origen" target="_blank" rel="noopener">
+          <div class="featured-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/ea1b5b110837777.Y3JvcCwxMzgwLDEwODAsMTMsMA.jpg" alt="Origen"></div>
+          <div class="featured-caption">
+            <div class="featured-caption-left"><span class="featured-caption-title">Origen</span><span class="featured-caption-sub">Cachantún</span></div>
+            <span class="featured-caption-year">4.2K vistas</span>
+          </div>
+        </a>
+      </div>
+      <div class="featured-grid" id="featured-grid-2">
+        <a class="featured-item" style="flex:2;" href="https://www.behance.net/gallery/196356359/Young-Lions-Chile-2024-Oro-Digital" target="_blank" rel="noopener">
+          <div class="featured-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/f8ac78196356359.Y3JvcCwxMzgwLDEwODAsMTMsMA.png" alt="Young Lions Chile 2024"></div>
+          <div class="featured-caption">
+            <div class="featured-caption-left"><span class="featured-caption-title">Young Lions Chile 2024</span><span class="featured-caption-sub">Oro Digital</span></div>
+            <span class="featured-caption-year">3.8K vistas</span>
+          </div>
+        </a>
+        <a class="featured-item" style="flex:3;" href="https://www.behance.net/gallery/247988883/Xiaomi-Young-Lions-Chile-2026-Gold-Film" target="_blank" rel="noopener">
+          <div class="featured-img-wrap"><img src="https://mir-s3-cdn-cf.behance.net/projects/max_808/5bc200247988883.Y3JvcCwyODc2LDIyNTAsMjgsMA.jpg" alt="Xiaomi"></div>
+          <div class="featured-caption">
+            <div class="featured-caption-left"><span class="featured-caption-title">Xiaomi</span><span class="featured-caption-sub">Young Lions Chile 2026 · Gold Film</span></div>
+            <span class="featured-caption-year">3.7K vistas</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -342,7 +375,7 @@
   <!-- WORK -->
   <section class="work-section" id="work">
     <p class="work-label">Selección · Behance</p>
-    <h2 class="section-heading">Trabajo publicado</h2>
+    <h2 class="section-heading" data-heading="Trabajo publicado"></h2>
     <p class="work-description">Campañas publicitarias para marcas nacionales e internacionales, publicadas en Behance. Pasa el cursor sobre cada proyecto para ver la pieza.</p>
 
     <ul class="project-list">
@@ -350,7 +383,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/247988883/Xiaomi-Young-Lions-Chile-2026-Gold-Film" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/5bc200247988883.Y3JvcCwyODc2LDIyNTAsMjgsMA.jpg">
         <span class="project-index">01</span>
         <div>
-          <div class="project-name">Xiaomi <span class="project-views">3.7K vistas</span></div>
+          <div class="project-name">Xiaomi<span class="project-views">3.7K vistas</span></div>
           <div class="project-sub"><span class="sub-item">Young Lions Chile 2026</span><span class="sub-dot">·</span><span class="sub-item">Gold Film</span></div>
         </div>
       </a>
@@ -358,7 +391,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/196356359/Young-Lions-Chile-2024-Oro-Digital" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/f8ac78196356359.Y3JvcCwxMzgwLDEwODAsMTMsMA.png">
         <span class="project-index">02</span>
         <div>
-          <div class="project-name">Young Lions Chile 2024 <span class="project-views">3.8K vistas</span></div>
+          <div class="project-name">Young Lions Chile 2024<span class="project-views">3.8K vistas</span></div>
           <div class="project-sub"><span class="sub-item">Oro Digital</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
         </div>
       </a>
@@ -366,7 +399,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/146755825/Movistar-Safelist" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/13333d146755825.Y3JvcCwxMzgwLDEwODAsMCww.jpg">
         <span class="project-index">03</span>
         <div>
-          <div class="project-name">Safelist <span class="project-views">5.2K vistas</span></div>
+          <div class="project-name">Safelist<span class="project-views">5.2K vistas</span></div>
           <div class="project-sub"><span class="sub-item">Movistar</span><span class="sub-dot">·</span><span class="sub-item">Film &amp; Audio</span></div>
         </div>
       </a>
@@ -374,7 +407,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/110837777/Cachantun-Origen" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/ea1b5b110837777.Y3JvcCwxMzgwLDEwODAsMTMsMA.jpg">
         <span class="project-index">04</span>
         <div>
-          <div class="project-name">Origen <span class="project-views">4.2K vistas</span></div>
+          <div class="project-name">Origen<span class="project-views">4.2K vistas</span></div>
           <div class="project-sub"><span class="sub-item">Cachantún</span><span class="sub-dot">·</span><span class="sub-item">Campaña de marca</span></div>
         </div>
       </a>
@@ -382,7 +415,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/143688955/Budweiser-Back-to-Live" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/33443a143688955.Y3JvcCwxMzgwLDEwODAsMjAsMA.jpg">
         <span class="project-index">05</span>
         <div>
-          <div class="project-name">Back to Live <span class="project-views">1.1K vistas</span></div>
+          <div class="project-name">Back to Live<span class="project-views">1.1K vistas</span></div>
           <div class="project-sub"><span class="sub-item">Budweiser</span><span class="sub-dot">·</span><span class="sub-item">Música</span></div>
         </div>
       </a>
@@ -390,7 +423,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/241752665/Bci-Seguros-Campana-SOAP-2026" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/e97dd2241752665.Y3JvcCwxNDg3LDExNjMsNzI1LDI3Ng.jpg">
         <span class="project-index">06</span>
         <div>
-          <div class="project-name">Campaña SOAP 2026 <span class="project-views">285 vistas</span></div>
+          <div class="project-name">Campaña SOAP 2026<span class="project-views">285 vistas</span></div>
           <div class="project-sub"><span class="sub-item">Bci Seguros</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
         </div>
       </a>
@@ -398,7 +431,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/205194309/Elite-El-amigo-mas-suave" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/b30307205194309.Y3JvcCwxMzgwLDEwODAsMTk4LDA.jpg">
         <span class="project-index">07</span>
         <div>
-          <div class="project-name">El amigo más suave <span class="project-views">702 vistas</span></div>
+          <div class="project-name">El amigo más suave<span class="project-views">702 vistas</span></div>
           <div class="project-sub"><span class="sub-item">Elite</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
         </div>
       </a>
@@ -406,7 +439,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/234493345/Elite-Campana-institucional-2025" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/0d5c74234493345.Y3JvcCwxNDU3LDExNDAsMzc4LDE3Ng.jpg">
         <span class="project-index">08</span>
         <div>
-          <div class="project-name">Campaña institucional 2025 <span class="project-views">544 vistas</span></div>
+          <div class="project-name">Campaña institucional 2025<span class="project-views">544 vistas</span></div>
           <div class="project-sub"><span class="sub-item">Elite</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
         </div>
       </a>
@@ -414,7 +447,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/157729169/Bauker-Esta-Navidad-te-mereces-una-Bauker" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/31d644157729169.Y3JvcCwxMDkwLDg1Myw0MTUsMTEz.jpg">
         <span class="project-index">09</span>
         <div>
-          <div class="project-name">Esta Navidad te mereces una Bauker <span class="project-views">1.1K vistas</span></div>
+          <div class="project-name">Esta Navidad te mereces una Bauker<span class="project-views">1.1K vistas</span></div>
           <div class="project-sub"><span class="sub-item">Bauker</span><span class="sub-dot">·</span><span class="sub-item">Campaña estacional</span></div>
         </div>
       </a>
@@ -422,7 +455,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/214504473/SOCIAL-WREATHS" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/e1b5f3214504473.Y3JvcCw4MDgsNjMyLDAsMA.jpg">
         <span class="project-index">10</span>
         <div>
-          <div class="project-name">Social Wreaths <span class="project-views">659 vistas</span></div>
+          <div class="project-name">Social Wreaths<span class="project-views">659 vistas</span></div>
           <div class="project-sub"><span class="sub-item">Gobierno de Chile</span><span class="sub-dot">·</span><span class="sub-item">Bien público</span></div>
         </div>
       </a>
@@ -430,7 +463,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/124639289/Bauker-Dijo-que-lo-repararia" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/b9e4a4124639289.Y3JvcCwxMjI5LDk2MiwyMzcsMTEy.jpg">
         <span class="project-index">11</span>
         <div>
-          <div class="project-name">Dijo que lo repararía <span class="project-views">1.1K vistas</span></div>
+          <div class="project-name">Dijo que lo repararía<span class="project-views">1.1K vistas</span></div>
           <div class="project-sub"><span class="sub-item">Bauker</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
         </div>
       </a>
@@ -438,7 +471,7 @@
       <a class="project-row" href="https://www.behance.net/gallery/253043345/Cotidian-Alicia" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/b20579253043345.Y3JvcCwzOTI3LDMwNzIsNzg3LDA.png">
         <span class="project-index">12</span>
         <div>
-          <div class="project-name">Cotidian // Alic.ia <span class="project-views">82 vistas</span></div>
+          <div class="project-name">Cotidian // Alic.ia<span class="project-views">82 vistas</span></div>
           <div class="project-sub"><span class="sub-item">Proyecto personal</span><span class="sub-dot">·</span><span class="sub-item">Diseño gráfico</span></div>
         </div>
       </a>
@@ -450,7 +483,7 @@
   <section class="about-section" id="about">
     <div>
       <p class="about-label">Más allá del brief</p>
-      <h2 class="section-heading">Sobre mí</h2>
+      <h2 class="section-heading" data-heading="Sobre mí"></h2>
       <p class="about-text">
         Soy <strong>Creative Director</strong> en Santiago, Chile. Trabajo en publicidad desarrollando
         ideas y campañas para marcas como <strong>Xiaomi</strong>, <strong>Corona</strong>, <strong>Budweiser</strong>,
@@ -498,93 +531,169 @@
       <span>© <span id="year"></span> Seba Ulloa Riquelme</span>
       <span>Creative Director — Santiago, Chile</span>
     </div>
+    <div class="footer-name-wrap"><span>Seba Ulloa Riquelme</span></div>
   </footer>
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+gsap.registerPlugin(ScrollTrigger);
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* Custom cursor */
-  const cursor = document.getElementById('cursor');
-  const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (hasFinePointer) {
-    window.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
-    });
-    document.querySelectorAll('a').forEach(el => {
-      if (el.classList.contains('project-row')) return;
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
+/* ─── Custom cursor ─── */
+const cursor = document.getElementById('cursor');
+const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (hasFinePointer) {
+  window.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a').forEach(el => {
+    if (el.classList.contains('project-row') || el.classList.contains('featured-item')) return;
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
 
-    /* Project hover preview + VIEW cursor */
-    const preview = document.getElementById('preview');
-    const previewImg = document.getElementById('preview-img');
-    document.querySelectorAll('.project-row').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.classList.add('hover-view');
-        previewImg.src = el.dataset.img;
-        preview.classList.add('on');
-      });
-      el.addEventListener('mousemove', (e) => {
-        preview.style.left = (e.clientX + 40) + 'px';
-        preview.style.top  = (e.clientY - 100) + 'px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover-view');
-        preview.classList.remove('on');
-      });
+  const preview = document.getElementById('preview');
+  const previewImg = document.getElementById('preview-img');
+  document.querySelectorAll('.project-row, .featured-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.classList.add('hover-view');
+      previewImg.src = el.dataset.img || el.querySelector('img')?.src || '';
+      if (el.classList.contains('project-row')) preview.classList.add('on');
     });
-  } else {
-    document.getElementById('preview').style.display = 'none';
-  }
-
-  /* Word / char stagger reveal for quote-style paragraphs */
-  function buildStagger(el) {
-    const text = el.dataset.text;
-    el.innerHTML = '';
-    const words = text.split(' ');
-    words.forEach((w, wi) => {
-      w.split('').forEach(ch => {
-        const span = document.createElement('span');
-        span.className = 'q-char';
-        span.textContent = ch;
-        el.appendChild(span);
-      });
-      if (wi < words.length - 1) el.appendChild(document.createTextNode(' '));
+    el.addEventListener('mousemove', (e) => {
+      preview.style.left = (e.clientX + 40) + 'px';
+      preview.style.top  = (e.clientY - 100) + 'px';
     });
-  }
-  document.querySelectorAll('[data-text]').forEach(buildStagger);
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('hover-view');
+      preview.classList.remove('on');
+    });
+  });
+} else {
+  document.getElementById('preview').style.display = 'none';
+}
 
-  const staggerObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const chars = entry.target.querySelectorAll('.q-char');
+/* ─── Hero name — letter split + entrance ─── */
+(function () {
+  const el = document.getElementById('hero-name');
+  const text = el.dataset.text;
+  text.split('').forEach(ch => {
+    const span = document.createElement('span');
+    span.className = 'hl';
+    span.textContent = ch === ' ' ? ' ' : ch;
+    el.appendChild(span);
+  });
+  gsap.to('#hero-name .hl', { y: 0, opacity: 1, duration: 1, ease: 'power4.out', stagger: 0.025, delay: 0.2 });
+  gsap.to('.hero-eyebrow, .hero-roles, .hero-sub, .scroll-cue', { opacity: 1, duration: 1, ease: 'power2.out', delay: 0.5 });
+  gsap.utils.toArray('.pimg').forEach((p, i) => gsap.to(p, { opacity: 1, duration: 1, delay: 0.3 + i * 0.06, onStart: () => p.classList.add('in') }));
+})();
+
+/* ─── Section headings — letter reveal on scroll ─── */
+document.querySelectorAll('.section-heading[data-heading]').forEach(h => {
+  const text = h.dataset.heading;
+  text.split('').forEach(ch => {
+    if (ch === ' ') { const s = document.createElement('span'); s.className = 'sh-space'; h.appendChild(s); return; }
+    const span = document.createElement('span');
+    span.className = 'sh-letter';
+    span.textContent = ch;
+    h.appendChild(span);
+  });
+  gsap.to(h.querySelectorAll('.sh-letter'), {
+    y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', stagger: 0.02,
+    scrollTrigger: { trigger: h, start: 'top 85%' }
+  });
+});
+
+/* ─── Quote word/char stagger reveal ─── */
+document.querySelectorAll('[data-text]').forEach(el => {
+  if (el.id === 'hero-name') return;
+  const text = el.dataset.text;
+  el.innerHTML = '';
+  text.split(' ').forEach((w, wi, arr) => {
+    w.split('').forEach(ch => {
+      const span = document.createElement('span');
+      span.className = 'q-char';
+      span.textContent = ch;
+      el.appendChild(span);
+    });
+    if (wi < arr.length - 1) el.appendChild(document.createTextNode(' '));
+  });
+  ScrollTrigger.create({
+    trigger: el, start: 'top 75%', once: true,
+    onEnter: () => {
+      const chars = el.querySelectorAll('.q-char');
       chars.forEach((c, i) => setTimeout(() => c.classList.add('in'), i * 12));
-      staggerObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.4 });
-  document.querySelectorAll('#philosophy-text, #punchline-text').forEach(el => staggerObserver.observe(el));
+    }
+  });
+});
 
-  /* Generic reveal-on-scroll */
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+/* ─── Generic reveal-on-scroll ─── */
+document.querySelectorAll('.reveal').forEach(el => {
+  gsap.to(el, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
+});
 
-  /* Active nav link by section */
-  const sections = ['top','philosophy','work','about','contact'].map(id => document.getElementById(id)).filter(Boolean);
-  const navLinks = document.querySelectorAll('.nav-link');
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const id = entry.target.id;
-      navLinks.forEach(l => l.classList.toggle('active', l.dataset.section === id || (id === 'philosophy' && l.dataset.section === 'top')));
+/* ─── Nav active + scroll-linked line fill ─── */
+const navLinks = document.querySelectorAll('.nav-link');
+const sectionMap = [
+  { id: 'top', el: document.getElementById('top') },
+  { id: 'work', el: document.getElementById('work') },
+  { id: 'about', el: document.getElementById('about') },
+  { id: 'contact', el: document.getElementById('contact') },
+];
+sectionMap.forEach(({ id, el }) => {
+  if (!el) return;
+  ScrollTrigger.create({
+    trigger: el, start: 'top center', end: 'bottom center',
+    onToggle: self => {
+      if (!self.isActive) return;
+      navLinks.forEach(l => l.classList.toggle('active', l.dataset.section === id));
+    },
+    onUpdate: self => {
+      const link = document.querySelector('.nav-link[data-section="' + id + '"]');
+      if (link) link.querySelector('.nav-line-fill').style.width = (self.progress * 100) + '%';
+    }
+  });
+});
+
+/* ─── Parallax mousemove on hero images ─── */
+if (hasFinePointer) {
+  const pimgs = gsap.utils.toArray('.pimg');
+  const quicks = pimgs.map(p => ({
+    x: gsap.quickTo(p, 'x', { duration: 0.6, ease: 'power3.out' }),
+    y: gsap.quickTo(p, 'y', { duration: 0.6, ease: 'power3.out' }),
+    depth: parseFloat(p.dataset.depth) * 60
+  }));
+  document.getElementById('top').addEventListener('mousemove', (e) => {
+    const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;
+    quicks.forEach(q => { q.x(dx * q.depth); q.y(dy * q.depth); });
+  });
+}
+
+/* ─── Featured grid hover ─── */
+function initFeaturedGrid(gridId, defaultFlex) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  const items = Array.from(grid.querySelectorAll('.featured-item'));
+  const allItems = () => Array.from(document.querySelectorAll('.featured-item'));
+  items.forEach((item, i) => {
+    item.addEventListener('mouseenter', () => {
+      allItems().forEach(el => gsap.to(el, { filter: 'grayscale(1) brightness(0.4)', duration: 0.4 }));
+      gsap.to(item, { filter: 'grayscale(0) brightness(1)', duration: 0.4 });
+      items.forEach((el, j) => gsap.to(el, { flex: i === j ? Math.max(...defaultFlex) : Math.min(...defaultFlex), duration: 0.7, ease: 'power3.inOut' }));
     });
-  }, { threshold: 0.5 });
-  sections.forEach(s => navObserver.observe(s));
+  });
+  grid.addEventListener('mouseleave', () => {
+    allItems().forEach(el => gsap.to(el, { filter: 'grayscale(0) brightness(1)', duration: 0.5 }));
+    items.forEach((el, j) => gsap.to(el, { flex: defaultFlex[j], duration: 0.7, ease: 'power3.inOut' }));
+  });
+}
+initFeaturedGrid('featured-grid', [3, 2]);
+initFeaturedGrid('featured-grid-2', [2, 3]);
 </script>
 
 </body>
