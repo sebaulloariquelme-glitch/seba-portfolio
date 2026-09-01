@@ -4,397 +4,587 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Seba Ulloa Riquelme — Creative Director</title>
-<meta name="description" content="Portafolio de Seba Ulloa Riquelme, Creative Director. Campañas para Corona, Budweiser, Xiaomi, Movistar y Cachantún." />
+<meta name="description" content="Portafolio de Seba Ulloa Riquelme, Creative Director en Santiago, Chile. Campañas para Xiaomi, Corona, Budweiser, Movistar, Cachantún, Elite, Bci Seguros y Bauker." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0b0b0b;
-    --bg2: #121212;
-    --text: #f2f0ea;
-    --text2: #9a9890;
-    --accent: #ff5a2d;
-    --line: rgba(242,240,234,0.12);
+    --black: #0a0a0a;
+    --white: #f2f0eb;
+    --dim:   #6b6b6b;
+    --accent:#e8e0d0;
+    --font-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+    --font-heading: 'Space Grotesk', 'Host Grotesk', sans-serif;
+    --font-mono:    'Courier New', Courier, monospace;
   }
 
-  html { scroll-behavior: smooth; }
+  html { font-size: 16px; overflow-x: hidden; max-width: 100vw; scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
+    background: #000;
+    color: var(--white);
+    font-family: var(--font-mono);
+    cursor: none;
     overflow-x: hidden;
   }
-
-  .display { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; }
+  @media (hover: none) and (pointer: coarse) { body { cursor: auto; } #cursor { display: none !important; } }
 
   a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: #0a0a0a; }
 
-  ::selection { background: var(--accent); color: #0b0b0b; }
-
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 6vw; }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.5rem 6vw;
-    mix-blend-mode: difference;
+  /* ─── CUSTOM CURSOR ─── */
+  #cursor {
+    position: fixed; width: 8px; height: 8px;
+    background: var(--white); border-radius: 50%;
+    pointer-events: none; z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    display: flex; align-items: center; justify-content: center;
   }
-  .nav-logo { font-family: 'Archivo Black', sans-serif; font-size: 15px; letter-spacing: 0.5px; }
-  .nav-links { display: flex; gap: 2rem; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; }
-  .nav-links a { opacity: 0.75; transition: opacity 0.25s; }
-  .nav-links a:hover { opacity: 1; }
-  @media (max-width: 640px) { .nav-links { gap: 1.1rem; font-size: 11px; } }
+  #cursor.hover {
+    width: 44px; height: 44px; background: transparent;
+    box-shadow: inset 0 0 0 1px rgba(242,240,235,0.5);
+  }
+  #cursor.hover-view {
+    width: 76px; height: 76px; background: var(--white);
+  }
+  #cursor.hover-view::after {
+    content: 'VER'; font-family: var(--font-heading); font-size: 0.6rem;
+    font-weight: 500; letter-spacing: 0.18em; color: #0a0a0a; position: absolute;
+  }
 
-  /* HERO */
+  #preview {
+    position: fixed; width: min(24vw, 300px); aspect-ratio: 4/3;
+    pointer-events: none; z-index: 60; top: 0; left: 0;
+    opacity: 0; transition: opacity 0.35s ease;
+    overflow: hidden; border-radius: 2px;
+  }
+  #preview.on { opacity: 1; }
+  #preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ─── LAYOUT ─── */
+  .page { min-height: 100vh; display: flex; flex-direction: column; background: var(--black); overflow-x: hidden; max-width: 100vw; }
+
+  /* ─── HEADER ─── */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 2rem 3rem;
+  }
+  .logo {
+    font-family: var(--font-display); font-size: 1rem; font-style: italic;
+    letter-spacing: -0.01em; color: var(--white); opacity: 0.75;
+  }
+  nav { display: flex; gap: 2.5rem; align-items: center; }
+  .nav-link { display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: #444; transition: background 0.3s; }
+  .nav-link:hover .nav-dot, .nav-link.active .nav-dot { background: var(--white); }
+  .nav-label {
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: #666;
+    transition: color 0.3s;
+  }
+  .nav-link:hover .nav-label, .nav-link.active .nav-label { color: var(--white); }
+  .nav-line { width: 60px; height: 1px; background: #262626; display: block; overflow: hidden; }
+  .nav-line-fill { display: block; height: 100%; width: 0%; background: var(--white); transition: width 0.4s ease; }
+  .nav-link.active .nav-line-fill { width: 100%; }
+  .nav-icons { display: flex; gap: 1rem; margin-left: 0.5rem; }
+  .nav-icon { color: #666; transition: color 0.3s; display: flex; }
+  .nav-icon:hover { color: var(--white); }
+  .nav-icon svg { width: 14px; height: 14px; }
+  @media (max-width: 780px) { nav { gap: 1.2rem; } .nav-line { width: 34px; } header { padding: 1.5rem 1.5rem; } }
+  @media (max-width: 560px) { .nav-label { display: none; } .nav-line { display: none; } .nav-icons { display: none; } }
+
+  /* ─── HERO ─── */
   .hero {
-    min-height: 100dvh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 8rem 6vw 4rem;
-    position: relative;
+    min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 3rem 6rem; position: relative;
   }
   .hero-eyebrow {
-    font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--text2); margin-bottom: 1.25rem;
-    display: flex; align-items: center; gap: 10px;
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dim);
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;
   }
-  .hero-eyebrow::before {
-    content: ''; width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent); display: inline-block;
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .hero-name-clip { overflow: hidden; padding-bottom: 0.1em; line-height: 1; }
+  .hero-name {
+    font-family: var(--font-display); font-size: clamp(3rem, 9vw, 8rem);
+    font-weight: 400; font-style: italic; line-height: 1.05; letter-spacing: -0.02em;
+    color: #fff;
   }
-  .hero h1 {
-    font-size: clamp(3rem, 11vw, 9rem);
-    line-height: 0.92;
-    letter-spacing: -1px;
+  .hero-roles {
+    font-family: var(--font-heading); font-size: 0.85rem; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase; color: #888;
+    display: flex; align-items: center; gap: 0.6em; flex-wrap: wrap;
+    margin-top: 1.4rem; margin-bottom: 0.5rem;
   }
-  .hero h1 .line2 { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
-  .hero-role {
-    margin-top: 1.75rem;
-    font-size: clamp(1.1rem, 2.4vw, 1.6rem);
-    color: var(--text2);
-    max-width: 640px;
+  .hero-roles-sep { color: #888; font-size: 1.8em; line-height: 1; font-family: var(--font-display); font-style: italic; }
+  .hero-sub {
+    font-size: 0.78rem; letter-spacing: 0.06em; color: #999; margin-top: 1rem;
+    max-width: 52ch; line-height: 1.8; text-transform: none;
   }
-  .hero-role strong { color: var(--text); font-weight: 600; }
-
   .scroll-cue {
-    position: absolute; bottom: 2.5rem; left: 6vw;
-    font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text2);
+    position: absolute; bottom: 2.5rem; left: 3rem; font-size: 0.65rem;
+    letter-spacing: 0.2em; text-transform: uppercase; color: #555;
     display: flex; align-items: center; gap: 10px;
   }
-  .scroll-cue span { width: 32px; height: 1px; background: var(--text2); display: inline-block; }
+  .scroll-cue span { width: 32px; height: 1px; background: #444; display: inline-block; }
+  @media (max-width: 640px) { .hero { padding: 7rem 1.5rem 5rem; } .scroll-cue { left: 1.5rem; } }
 
-  /* MARQUEE */
-  .marquee-wrap {
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    overflow: hidden;
-    padding: 1.1rem 0;
-    background: var(--bg2);
+  /* ─── PHILOSOPHY ─── */
+  .philosophy-section {
+    padding: 7rem 3rem; background: #0d0d0d; border-top: 1px solid #1a1a1a; position: relative; z-index: 3;
   }
-  .marquee {
-    display: flex; white-space: nowrap;
-    animation: scroll-left 24s linear infinite;
-    width: max-content;
+  .philosophy-inner { display: grid; grid-template-columns: 55fr 45fr; gap: 5rem; align-items: start; }
+  .philosophy-label {
+    font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #888; margin-bottom: 2.5rem;
   }
-  .marquee span {
-    font-family: 'Archivo Black', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    padding: 0 2rem;
-    color: var(--text2);
-    display: inline-flex; align-items: center; gap: 2rem;
+  .philosophy-text {
+    font-family: var(--font-heading); font-size: clamp(1.3rem, 2.6vw, 2.6rem);
+    font-weight: 300; color: #aaa; line-height: 1.3; letter-spacing: 0.01em;
   }
-  .marquee span::after { content: '◆'; color: var(--accent); font-size: 0.7rem; }
-  @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .philosophy-text .q-char { display: inline; will-change: opacity; opacity: 0.15; transition: opacity 0.4s; }
+  .philosophy-text .q-char.hi { color: var(--white); }
+  .philosophy-text .q-char.in { opacity: 1; }
 
-  /* SECTION HEADS */
-  .section { padding: 7rem 0; }
-  .section-head {
-    display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem;
-  }
-  .section-num { font-size: 13px; color: var(--accent); letter-spacing: 1px; }
-  .section-title { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-top: 0.5rem; }
-  .section-desc { max-width: 320px; color: var(--text2); font-size: 14px; line-height: 1.6; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-self: stretch; }
+  .stat-card { padding: 1.4rem 1.2rem; border-right: 1px solid #262626; border-bottom: 1px solid #262626; }
+  .stat-card:nth-child(even) { border-right: none; }
+  .stat-num { font-family: var(--font-display); font-style: italic; font-size: 2.1rem; color: var(--white); line-height: 1; }
+  .stat-label { font-family: var(--font-heading); font-size: 0.72rem; color: #888; letter-spacing: 0.06em; margin-top: 0.6rem; }
+  @media (max-width: 780px) { .philosophy-inner { grid-template-columns: 1fr; gap: 2.5rem; } .philosophy-section { padding: 5rem 1.5rem; } }
 
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.in { opacity: 1; transform: translateY(0); }
+  /* ─── WORK ─── */
+  .work-section { padding: 6rem 3rem 3rem; background: #161412; position: relative; z-index: 3; }
+  .work-label { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: #888; margin-bottom: 1.5rem; }
+  .section-heading {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(2rem, 5vw, 4rem); color: var(--white); line-height: 1; margin-bottom: 1.5rem;
+  }
+  .work-description {
+    font-family: var(--font-heading); font-size: 0.92rem; color: #888;
+    letter-spacing: 0.01em; line-height: 1.7; max-width: 54ch; margin-bottom: 3rem;
+  }
 
-  /* WORK */
-  .work-list { display: flex; flex-direction: column; }
-  .work-item {
-    display: grid; grid-template-columns: 90px 1fr auto auto; align-items: center;
-    gap: 1.5rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--line);
-    position: relative;
-    cursor: pointer;
-    transition: padding-left 0.35s ease;
+  .project-list { list-style: none; }
+  .project-row {
+    display: grid; grid-template-columns: 3.5rem 1fr; align-items: center; gap: 2rem;
+    padding: 1.4rem 0; border-bottom: 1px solid #1a1a1a; cursor: none; transition: border-color 0.3s;
   }
-  .work-list .work-item:last-child { border-bottom: 1px solid var(--line); }
-  .work-item:hover { padding-left: 1.25rem; }
-  .work-index { font-size: 13px; color: var(--text2); }
-  .work-main { min-width: 0; }
-  .work-title {
-    font-size: clamp(1.4rem, 3.2vw, 2.4rem);
-    font-weight: 600;
-    transition: color 0.3s;
-    display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
+  .project-row:hover { border-bottom-color: #333; }
+  .project-row:hover .project-name { transform: translateX(0.5rem); color: var(--white); }
+  .project-row:hover .project-index { color: var(--white); }
+  .project-index { font-size: 1rem; letter-spacing: 0.1em; color: #333; transition: color 0.3s; align-self: start; padding-top: 2px; }
+  .project-name {
+    font-family: var(--font-heading); font-size: clamp(1.25rem, 2.6vw, 2.1rem); font-weight: 400;
+    color: #666; letter-spacing: -0.01em; line-height: 1.15;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.3s;
   }
-  .work-item:hover .work-title { color: var(--accent); }
-  .work-client { color: var(--text2); font-weight: 400; font-size: 0.55em; }
-  .work-tags { margin-top: 0.6rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .tag {
-    font-size: 10.5px; letter-spacing: 0.5px; text-transform: uppercase;
-    border: 1px solid var(--line); border-radius: 20px; padding: 3px 10px;
-    color: var(--text2);
+  .project-sub {
+    font-family: var(--font-heading); font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #777; margin-top: 0.7rem; display: flex; align-items: stretch; gap: 0.6em; line-height: 1.5;
+    transition: color 0.3s ease;
   }
-  .tag.award { color: var(--accent); border-color: var(--accent); }
-  .work-year { font-size: 14px; color: var(--text2); white-space: nowrap; }
-  .work-arrow {
-    width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.3s;
-    flex-shrink: 0;
+  .project-row:hover .project-sub { color: var(--white); }
+  .project-row:hover .sub-dot { color: var(--white); }
+  .sub-dot { font-family: var(--font-display); font-style: italic; font-size: 1.6em; color: #777; line-height: 1; transition: color 0.3s ease; }
+  .project-views {
+    font-family: var(--font-mono); font-size: 0.68rem; color: #444; margin-top: 0.5rem; letter-spacing: 0.05em;
   }
-  .work-item:hover .work-arrow { background: var(--accent); border-color: var(--accent); transform: rotate(45deg); }
-  .work-arrow svg { width: 16px; height: 16px; }
-  .work-item:hover .work-arrow svg { color: #0b0b0b; }
-
   @media (max-width: 720px) {
-    .work-item { grid-template-columns: 40px 1fr; grid-template-rows: auto auto; row-gap: 0.75rem; }
-    .work-year, .work-arrow { display: none; }
+    .project-row { grid-template-columns: 2.4rem 1fr; }
+    .project-name { font-size: clamp(1.1rem, 5.4vw, 1.6rem); }
   }
+  @media (max-width: 640px) { .work-section { padding: 5rem 1.5rem 2rem; } }
 
-  /* ABOUT */
-  .about-grid {
-    display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem;
-    align-items: start;
+  /* ─── ABOUT ─── */
+  .about-section { padding: 7rem 3rem 6rem; display: grid; grid-template-columns: 60fr 40fr; gap: 5rem; background: var(--black); position: relative; z-index: 3; }
+  .about-label { font-size: 0.8rem; letter-spacing: 0.25em; text-transform: uppercase; color: #888; margin-bottom: 1.5rem; }
+  .about-section .section-heading { margin-bottom: 2.2rem; }
+  .about-text {
+    font-family: var(--font-heading); font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 300;
+    color: #999; line-height: 1.7;
   }
-  .about-text p {
-    font-size: clamp(1.3rem, 2.6vw, 1.9rem);
-    line-height: 1.5;
-    color: var(--text2);
-    font-weight: 500;
-  }
-  .about-text strong { color: var(--text); font-weight: 600; }
-  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 1rem; }
-  .stat-num { font-family: 'Archivo Black', sans-serif; font-size: clamp(2.2rem, 4vw, 3rem); color: var(--accent); }
-  .stat-label { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--text2); margin-top: 0.4rem; }
-  @media (max-width: 780px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+  .about-text strong { color: var(--white); font-weight: 500; }
 
-  /* CONTACT */
-  .contact { text-align: center; padding: 8rem 0 6rem; }
-  .contact-eyebrow { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--text2); margin-bottom: 1.5rem; }
-  .contact h2 {
-    font-size: clamp(2.6rem, 9vw, 6.5rem);
-    line-height: 0.95;
+  .about-right { display: flex; flex-direction: column; gap: 1.5rem; }
+  .about-mono {
+    width: 96px; height: 96px; border: 1px solid #2a2a2a; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-style: italic; font-size: 1.6rem; color: var(--white);
   }
-  .contact-links { margin-top: 3rem; display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
-  .contact-links a {
-    font-size: 15px; letter-spacing: 0.5px; text-transform: uppercase;
-    border-bottom: 1px solid var(--line); padding-bottom: 4px;
-    transition: border-color 0.3s, color 0.3s;
+  .about-role { border-top: 1px solid #1e1e1e; padding-top: 1.1rem; }
+  .about-role-company { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--white); }
+  .about-role-title { font-family: var(--font-heading); font-size: 0.85rem; color: #999; margin-top: 0.3rem; }
+  .about-role-period { font-family: var(--font-mono); font-size: 0.7rem; color: #555; margin-top: 0.35rem; letter-spacing: 0.04em; }
+  .about-cta {
+    font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--white); border-bottom: 1px solid #333; padding-bottom: 4px; align-self: flex-start;
+    transition: border-color 0.3s;
   }
-  .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+  .about-cta:hover { border-color: var(--white); }
+  @media (max-width: 780px) { .about-section { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 2.5rem; } }
 
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 2rem 6vw;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 12px; color: var(--text2); flex-wrap: wrap; gap: 0.75rem;
+  /* ─── PUNCHLINE ─── */
+  .punchline-section { padding: 6rem 3rem 7rem; text-align: center; background: #0d0d0d; border-top: 1px solid #1a1a1a; }
+  .punchline-wrap { max-width: 900px; margin: 0 auto; }
+  .punchline-quote-icon { font-family: var(--font-display); font-style: italic; font-size: 3rem; color: #333; margin-bottom: 1rem; }
+  .punchline-text {
+    font-family: var(--font-display); font-style: italic; font-weight: 400;
+    font-size: clamp(1.5rem, 3.6vw, 2.6rem); line-height: 1.35; color: #444;
   }
+  .punchline-text .q-char { display: inline; opacity: 0.15; transition: opacity 0.4s; }
+  .punchline-text .q-char.hi { color: var(--white); }
+  .punchline-text .q-char.in { opacity: 1; }
+  @media (max-width: 640px) { .punchline-section { padding: 4.5rem 1.5rem 5rem; } }
 
-  .cursor-dot {
-    position: fixed; width: 10px; height: 10px; border-radius: 50%;
-    background: var(--accent); pointer-events: none; z-index: 999;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.2s;
-    display: none;
+  /* ─── FOOTER ─── */
+  footer { padding: 5rem 3rem 3rem; background: var(--black); }
+  .footer-links-row {
+    display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem;
+    border-bottom: 1px solid #1a1a1a; padding-bottom: 3rem; margin-bottom: 2rem;
   }
-  @media (hover: hover) and (pointer: fine) { .cursor-dot { display: block; } }
+  .footer-links-eyebrow { font-family: var(--font-heading); font-size: 0.85rem; color: #777; margin-bottom: 0.8rem; }
+  .footer-links-email {
+    font-family: var(--font-display); font-style: italic; font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: var(--white); position: relative;
+  }
+  .footer-links-email::after {
+    content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 1px;
+    background: #333; transition: background 0.3s;
+  }
+  .footer-links-email:hover::after { background: var(--white); }
+  .footer-links-buttons { display: flex; gap: 1rem; }
+  .footer-barrel-link {
+    font-family: var(--font-heading); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--white); border: 1px solid #2a2a2a; border-radius: 20px; padding: 10px 20px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .footer-barrel-link:hover { border-color: var(--white); background: #141414; }
+  .footer-meta { display: flex; justify-content: space-between; color: #555; font-size: 0.68rem; letter-spacing: 0.04em; flex-wrap: wrap; gap: 0.6rem; }
+  @media (max-width: 640px) { footer { padding: 4rem 1.5rem 2rem; } .footer-links-row { align-items: flex-start; } }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<div class="cursor-dot" id="cursor"></div>
+<div id="cursor"></div>
+<div id="preview"><img id="preview-img" src="" alt="" /></div>
 
-<nav>
-  <a class="nav-logo" href="#top">SUR</a>
-  <div class="nav-links">
-    <a href="#work">Trabajo</a>
-    <a href="#about">Sobre mí</a>
-    <a href="#contact">Contacto</a>
-  </div>
-</nav>
+<div class="page">
 
-<section class="hero" id="top">
-  <div class="hero-eyebrow">Creative Director — Santiago, Chile</div>
-  <h1 class="display">
-    Seba Ulloa<br />
-    <span class="line2">Riquelme</span>
-  </h1>
-  <p class="hero-role">
-    Ideas para marcas como <strong>Corona</strong>, <strong>Budweiser</strong>, <strong>Xiaomi</strong>,
-    <strong>Movistar</strong> y <strong>Cachantún</strong> — publicidad con premios en Cannes Young Lions Chile.
-  </p>
-  <div class="scroll-cue"><span></span> Scroll</div>
-</section>
+  <header>
+    <a class="logo" href="#top">Seba Ulloa Riquelme</a>
+    <nav>
+      <a href="#top" class="nav-link active" data-section="top">
+        <span class="nav-dot"></span><span class="nav-label">Intro</span>
+        <span class="nav-line"><span class="nav-line-fill"></span></span>
+      </a>
+      <a href="#work" class="nav-link" data-section="work">
+        <span class="nav-dot"></span><span class="nav-label">Trabajo</span>
+        <span class="nav-line"><span class="nav-line-fill"></span></span>
+      </a>
+      <a href="#about" class="nav-link" data-section="about">
+        <span class="nav-dot"></span><span class="nav-label">Sobre mí</span>
+        <span class="nav-line"><span class="nav-line-fill"></span></span>
+      </a>
+      <a href="#contact" class="nav-link" data-section="contact">
+        <span class="nav-dot"></span><span class="nav-label">Contacto</span>
+        <span class="nav-line"><span class="nav-line-fill"></span></span>
+      </a>
+      <div class="nav-icons">
+        <a href="mailto:sebaulloariquelme@gmail.com" class="nav-icon" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"></rect><polyline points="2,4 12,13 22,4"></polyline></svg>
+        </a>
+        <a href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener" class="nav-icon" aria-label="Behance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h6a3 3 0 0 1 0 6H4z"/><path d="M4 12h6.5a3.5 3.5 0 0 1 0 7H4z"/><path d="M15 11c1-2 5-2 6 0M14.2 15h6.8M14.2 15a3.6 3.6 0 0 0 3.6 3.6c1.6 0 2.6-.8 3.1-1.8"/></svg>
+        </a>
+      </div>
+    </nav>
+  </header>
 
-<div class="marquee-wrap">
-  <div class="marquee">
-    <span>Dirección Creativa</span><span>Publicidad</span><span>Branding</span><span>Campañas</span><span>Film</span>
-    <span>Dirección Creativa</span><span>Publicidad</span><span>Branding</span><span>Campañas</span><span>Film</span>
-  </div>
-</div>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <p class="hero-eyebrow">Creative Director — Santiago, Chile</p>
+    <div class="hero-name-clip"><h1 class="hero-name">Seba Ulloa<br>Riquelme</h1></div>
+    <p class="hero-roles">
+      <span>Creative Director</span><span class="hero-roles-sep">·</span>
+      <span>Publicidad</span><span class="hero-roles-sep">·</span>
+      <span>Cannes Young Lions Chile</span>
+    </p>
+    <p class="hero-sub">
+      Ideas para marcas como Xiaomi, Corona, Budweiser, Movistar, Cachantún, Elite,
+      Bci Seguros y Bauker — de la idea al brief resuelto.
+    </p>
+    <div class="scroll-cue"><span></span> Scroll</div>
+  </section>
 
-<div class="wrap">
-
-  <section class="section" id="work">
-    <div class="section-head reveal">
+  <!-- PHILOSOPHY -->
+  <section class="philosophy-section" id="philosophy">
+    <div class="philosophy-inner">
       <div>
-        <div class="section-num">01 — Selección</div>
-        <h2 class="section-title display">Trabajo</h2>
+        <p class="philosophy-label">Qué hago</p>
+        <p class="philosophy-text" id="philosophy-text" data-text="Creo campañas que no se sienten como campañas. Cada proyecto empieza con una idea simple y termina en algo mejor de lo que pedía el brief, para marcas grandes y para marcas que recién empiezan."></p>
       </div>
-      <p class="section-desc">Una selección de campañas publicitarias, algunas premiadas en Cannes Young Lions Chile.</p>
-    </div>
-
-    <div class="work-list">
-
-      <a class="work-item reveal" href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">
-        <span class="work-index">01</span>
-        <div class="work-main">
-          <div class="work-title">Xiaomi <span class="work-client">Young Lions Chile</span></div>
-          <div class="work-tags"><span class="tag">Film</span><span class="tag award">Gold — Young Lions Chile</span></div>
-        </div>
-        <span class="work-year">2026</span>
-        <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
-      </a>
-
-      <a class="work-item reveal" href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">
-        <span class="work-index">02</span>
-        <div class="work-main">
-          <div class="work-title">I'm Coming <span class="work-client">Corona Cero</span></div>
-          <div class="work-tags"><span class="tag">Campaña</span><span class="tag award">Premiada</span></div>
-        </div>
-        <span class="work-year">2024</span>
-        <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
-      </a>
-
-      <a class="work-item reveal" href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">
-        <span class="work-index">03</span>
-        <div class="work-main">
-          <div class="work-title">Social Wreaths <span class="work-client">Gobierno de Chile</span></div>
-          <div class="work-tags"><span class="tag">Bien público</span><span class="tag">#NoMásMuertesEnElTránsito</span></div>
-        </div>
-        <span class="work-year">2024</span>
-        <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
-      </a>
-
-      <a class="work-item reveal" href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">
-        <span class="work-index">04</span>
-        <div class="work-main">
-          <div class="work-title">Safelist <span class="work-client">Movistar</span></div>
-          <div class="work-tags"><span class="tag">Film</span><span class="tag">Audio</span><span class="tag award">Multi-premiada</span></div>
-        </div>
-        <span class="work-year">2022</span>
-        <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
-      </a>
-
-      <a class="work-item reveal" href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">
-        <span class="work-index">05</span>
-        <div class="work-main">
-          <div class="work-title">Back to Live <span class="work-client">Budweiser</span></div>
-          <div class="work-tags"><span class="tag">Campaña</span><span class="tag">Música</span></div>
-        </div>
-        <span class="work-year">2022</span>
-        <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
-      </a>
-
-      <a class="work-item reveal" href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">
-        <span class="work-index">06</span>
-        <div class="work-main">
-          <div class="work-title">Campaña Origen <span class="work-client">Cachantún</span></div>
-          <div class="work-tags"><span class="tag">Marca</span></div>
-        </div>
-        <span class="work-year">2021</span>
-        <span class="work-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></span>
-      </a>
-
+      <div class="stat-grid reveal">
+        <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Proyectos publicados</div></div>
+        <div class="stat-card"><div class="stat-num">8+</div><div class="stat-label">Marcas</div></div>
+        <div class="stat-card"><div class="stat-num">CL</div><div class="stat-label">Young Lions Chile</div></div>
+        <div class="stat-card"><div class="stat-num">↗</div><div class="stat-label"><a href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">Ver Behance</a></div></div>
+      </div>
     </div>
   </section>
 
-  <section class="section" id="about">
-    <div class="section-head reveal">
+  <!-- WORK -->
+  <section class="work-section" id="work">
+    <p class="work-label">Selección · Behance</p>
+    <h2 class="section-heading">Trabajo publicado</h2>
+    <p class="work-description">Campañas publicitarias para marcas nacionales e internacionales, publicadas en Behance. Pasa el cursor sobre cada proyecto para ver la pieza.</p>
+
+    <ul class="project-list">
+
+      <a class="project-row" href="https://www.behance.net/gallery/247988883/Xiaomi-Young-Lions-Chile-2026-Gold-Film" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/5bc200247988883.Y3JvcCwyODc2LDIyNTAsMjgsMA.jpg">
+        <span class="project-index">01</span>
+        <div>
+          <div class="project-name">Xiaomi <span class="project-views">3.7K vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Young Lions Chile 2026</span><span class="sub-dot">·</span><span class="sub-item">Gold Film</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/196356359/Young-Lions-Chile-2024-Oro-Digital" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/f8ac78196356359.Y3JvcCwxMzgwLDEwODAsMTMsMA.png">
+        <span class="project-index">02</span>
+        <div>
+          <div class="project-name">Young Lions Chile 2024 <span class="project-views">3.8K vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Oro Digital</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/146755825/Movistar-Safelist" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/13333d146755825.Y3JvcCwxMzgwLDEwODAsMCww.jpg">
+        <span class="project-index">03</span>
+        <div>
+          <div class="project-name">Safelist <span class="project-views">5.2K vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Movistar</span><span class="sub-dot">·</span><span class="sub-item">Film &amp; Audio</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/110837777/Cachantun-Origen" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/ea1b5b110837777.Y3JvcCwxMzgwLDEwODAsMTMsMA.jpg">
+        <span class="project-index">04</span>
+        <div>
+          <div class="project-name">Origen <span class="project-views">4.2K vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Cachantún</span><span class="sub-dot">·</span><span class="sub-item">Campaña de marca</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/143688955/Budweiser-Back-to-Live" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/33443a143688955.Y3JvcCwxMzgwLDEwODAsMjAsMA.jpg">
+        <span class="project-index">05</span>
+        <div>
+          <div class="project-name">Back to Live <span class="project-views">1.1K vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Budweiser</span><span class="sub-dot">·</span><span class="sub-item">Música</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/241752665/Bci-Seguros-Campana-SOAP-2026" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/e97dd2241752665.Y3JvcCwxNDg3LDExNjMsNzI1LDI3Ng.jpg">
+        <span class="project-index">06</span>
+        <div>
+          <div class="project-name">Campaña SOAP 2026 <span class="project-views">285 vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Bci Seguros</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/205194309/Elite-El-amigo-mas-suave" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/b30307205194309.Y3JvcCwxMzgwLDEwODAsMTk4LDA.jpg">
+        <span class="project-index">07</span>
+        <div>
+          <div class="project-name">El amigo más suave <span class="project-views">702 vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Elite</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/234493345/Elite-Campana-institucional-2025" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/0d5c74234493345.Y3JvcCwxNDU3LDExNDAsMzc4LDE3Ng.jpg">
+        <span class="project-index">08</span>
+        <div>
+          <div class="project-name">Campaña institucional 2025 <span class="project-views">544 vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Elite</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/157729169/Bauker-Esta-Navidad-te-mereces-una-Bauker" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/31d644157729169.Y3JvcCwxMDkwLDg1Myw0MTUsMTEz.jpg">
+        <span class="project-index">09</span>
+        <div>
+          <div class="project-name">Esta Navidad te mereces una Bauker <span class="project-views">1.1K vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Bauker</span><span class="sub-dot">·</span><span class="sub-item">Campaña estacional</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/214504473/SOCIAL-WREATHS" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/e1b5f3214504473.Y3JvcCw4MDgsNjMyLDAsMA.jpg">
+        <span class="project-index">10</span>
+        <div>
+          <div class="project-name">Social Wreaths <span class="project-views">659 vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Gobierno de Chile</span><span class="sub-dot">·</span><span class="sub-item">Bien público</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/124639289/Bauker-Dijo-que-lo-repararia" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/b9e4a4124639289.Y3JvcCwxMjI5LDk2MiwyMzcsMTEy.jpg">
+        <span class="project-index">11</span>
+        <div>
+          <div class="project-name">Dijo que lo repararía <span class="project-views">1.1K vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Bauker</span><span class="sub-dot">·</span><span class="sub-item">Publicidad</span></div>
+        </div>
+      </a>
+
+      <a class="project-row" href="https://www.behance.net/gallery/253043345/Cotidian-Alicia" target="_blank" rel="noopener" data-img="https://mir-s3-cdn-cf.behance.net/projects/404/b20579253043345.Y3JvcCwzOTI3LDMwNzIsNzg3LDA.png">
+        <span class="project-index">12</span>
+        <div>
+          <div class="project-name">Cotidian // Alic.ia <span class="project-views">82 vistas</span></div>
+          <div class="project-sub"><span class="sub-item">Proyecto personal</span><span class="sub-dot">·</span><span class="sub-item">Diseño gráfico</span></div>
+        </div>
+      </a>
+
+    </ul>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div>
+      <p class="about-label">Más allá del brief</p>
+      <h2 class="section-heading">Sobre mí</h2>
+      <p class="about-text">
+        Soy <strong>Creative Director</strong> en Santiago, Chile. Trabajo en publicidad desarrollando
+        ideas y campañas para marcas como <strong>Xiaomi</strong>, <strong>Corona</strong>, <strong>Budweiser</strong>,
+        <strong>Movistar</strong>, <strong>Cachantún</strong>, <strong>Elite</strong>, <strong>Bci Seguros</strong> y <strong>Bauker</strong>,
+        con reconocimientos en <strong>Cannes Young Lions Chile</strong>. Todo mi trabajo publicado está en Behance.
+      </p>
+    </div>
+    <div class="about-right">
+      <div class="about-mono">SUR</div>
+      <div class="about-role">
+        <p class="about-role-company">Publicidad</p>
+        <p class="about-role-title">Creative Director</p>
+        <p class="about-role-period">Santiago, Chile</p>
+      </div>
+      <div class="about-role">
+        <p class="about-role-company">Cannes Young Lions Chile</p>
+        <p class="about-role-title">Reconocimientos en categoría Film &amp; Digital</p>
+        <p class="about-role-period">2024 — 2026</p>
+      </div>
+      <a class="about-cta" href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">Ver portafolio completo ↗</a>
+    </div>
+  </section>
+
+  <!-- PUNCHLINE -->
+  <section class="punchline-section">
+    <div class="punchline-wrap">
+      <div class="punchline-quote-icon">“</div>
+      <p class="punchline-text" id="punchline-text" data-text="Una buena idea no necesita gritar. Solo necesita quedarse."></p>
+    </div>
+  </section>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact">
+    <div class="footer-links-row">
       <div>
-        <div class="section-num">02 — Perfil</div>
-        <h2 class="section-title display">Sobre mí</h2>
+        <p class="footer-links-eyebrow">Siempre abierto a nuevas ideas.</p>
+        <a class="footer-links-email" href="mailto:sebaulloariquelme@gmail.com">sebaulloariquelme@gmail.com</a>
+      </div>
+      <div class="footer-links-buttons">
+        <a class="footer-barrel-link" href="mailto:sebaulloariquelme@gmail.com">Email</a>
+        <a class="footer-barrel-link" href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">Behance</a>
       </div>
     </div>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p>
-          <strong>Creative Director</strong> especializado en publicidad. He trabajado en campañas para
-          <strong>Corona</strong>, <strong>Budweiser</strong>, <strong>Xiaomi</strong>, <strong>Movistar</strong> y
-          <strong>Cachantún</strong>, con reconocimientos en <strong>Cannes Young Lions Chile</strong>.
-        </p>
-      </div>
-      <div class="stats reveal">
-        <div>
-          <div class="stat-num">6+</div>
-          <div class="stat-label">Marcas</div>
-        </div>
-        <div>
-          <div class="stat-num">2021—26</div>
-          <div class="stat-label">Actividad</div>
-        </div>
-        <div>
-          <div class="stat-num">CL</div>
-          <div class="stat-label">Young Lions Chile</div>
-        </div>
-        <div>
-          <div class="stat-num">↗</div>
-          <div class="stat-label"><a href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">Ver Behance</a></div>
-        </div>
-      </div>
+    <div class="footer-meta">
+      <span>© <span id="year"></span> Seba Ulloa Riquelme</span>
+      <span>Creative Director — Santiago, Chile</span>
     </div>
-  </section>
-
-  <section class="contact" id="contact">
-    <div class="contact-eyebrow reveal">03 — Contacto</div>
-    <h2 class="display reveal">¿Trabajamos<br/>juntos?</h2>
-    <div class="contact-links reveal">
-      <a href="mailto:sebaulloariquelme@gmail.com">sebaulloariquelme@gmail.com</a>
-      <a href="https://www.behance.net/sebaulloariquelme" target="_blank" rel="noopener">Behance ↗</a>
-    </div>
-  </section>
+  </footer>
 
 </div>
-
-<footer>
-  <span>© <span id="year"></span> Seba Ulloa Riquelme</span>
-  <span>Creative Director — Santiago, Chile</span>
-</footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  /* Custom cursor */
+  const cursor = document.getElementById('cursor');
+  const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (hasFinePointer) {
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a').forEach(el => {
+      if (el.classList.contains('project-row')) return;
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    /* Project hover preview + VIEW cursor */
+    const preview = document.getElementById('preview');
+    const previewImg = document.getElementById('preview-img');
+    document.querySelectorAll('.project-row').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('hover-view');
+        previewImg.src = el.dataset.img;
+        preview.classList.add('on');
+      });
+      el.addEventListener('mousemove', (e) => {
+        preview.style.left = (e.clientX + 40) + 'px';
+        preview.style.top  = (e.clientY - 100) + 'px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hover-view');
+        preview.classList.remove('on');
+      });
+    });
+  } else {
+    document.getElementById('preview').style.display = 'none';
+  }
+
+  /* Word / char stagger reveal for quote-style paragraphs */
+  function buildStagger(el) {
+    const text = el.dataset.text;
+    el.innerHTML = '';
+    const words = text.split(' ');
+    words.forEach((w, wi) => {
+      w.split('').forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'q-char';
+        span.textContent = ch;
+        el.appendChild(span);
+      });
+      if (wi < words.length - 1) el.appendChild(document.createTextNode(' '));
+    });
+  }
+  document.querySelectorAll('[data-text]').forEach(buildStagger);
+
+  const staggerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const chars = entry.target.querySelectorAll('.q-char');
+      chars.forEach((c, i) => setTimeout(() => c.classList.add('in'), i * 12));
+      staggerObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('#philosophy-text, #punchline-text').forEach(el => staggerObserver.observe(el));
+
+  /* Generic reveal-on-scroll */
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  const cursor = document.getElementById('cursor');
-  if (cursor) {
-    window.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+  /* Active nav link by section */
+  const sections = ['top','philosophy','work','about','contact'].map(id => document.getElementById(id)).filter(Boolean);
+  const navLinks = document.querySelectorAll('.nav-link');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      navLinks.forEach(l => l.classList.toggle('active', l.dataset.section === id || (id === 'philosophy' && l.dataset.section === 'top')));
     });
-  }
+  }, { threshold: 0.5 });
+  sections.forEach(s => navObserver.observe(s));
 </script>
 
 </body>
